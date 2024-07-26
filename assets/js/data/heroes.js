@@ -17327,6 +17327,7 @@ const heroes = [
 //     });
 // });
 
+// Initialize DOM Elements and Event Listeners on Page Load
 document.addEventListener("DOMContentLoaded", () => {
   const heroesList = document.getElementById("heroes-list");
   const draftBoosterList = document.getElementById("draft-booster-list");
