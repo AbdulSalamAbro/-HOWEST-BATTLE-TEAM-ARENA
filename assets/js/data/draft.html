@@ -169,6 +169,8 @@
         const villainsList = document.getElementById('villains-list');
         const heros = heroes.slice(0, 20);
 
+        // Implement Dynamic Hero Rendering and Progress Bars
+
         // Function to render heroes
         const renderHeroes = () => {
             heroesContainer.innerHTML = heros.map(hero => `
@@ -179,13 +181,13 @@
             `).join('');
         };
 
-        // Function to update progress bars
+        // 
         const updateProgress = (attribute, value, maxValue) => {
             let percentage = 100
             value === 0 ? percentage = 0 : percentage = 100;
             document.getElementById(`${attribute}-progress`).style.width = `${percentage}%`;
         };
-
+        // creating a function to calculate progress
         // Function to calculate progress
         const calculateProgress = () => {
             let totalStrength = 0;
