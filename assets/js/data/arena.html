@@ -65,6 +65,7 @@
         const bad = heroes.filter(
             (hero) => hero.biography.alignment === "bad"
         ).length;
+        // Integrate Heroes Data Module for Dynamic Hero Count Calculation
         document.getElementById('good-count').textContent = good;
         document.getElementById('bad-count').textContent = bad;
 
