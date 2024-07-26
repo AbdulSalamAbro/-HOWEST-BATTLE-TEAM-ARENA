@@ -17345,47 +17345,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderHeroes(heroesToRender) {
     heroesList.innerHTML = "";
     const heroesToDisplay = heroesToRender.slice(0, 20);
-    // Iterate through each hero in the 'heroes' array (assuming it's defined elsewhere)
-    // heroesToDisplay.forEach((hero) => {
-    //   // Create a div to hold the hero card
-    //   const heroCard = document.createElement("div");
-    //   heroCard.classList.add("hero-card"); // Apply CSS class for styling
-
-    //   // Create elements for displaying hero information
-    //   const nameElement = document.createElement("h2");
-    //   nameElement.textContent = hero.name;
-    //   heroCard.appendChild(nameElement);
-
-    //   const imageElement = document.createElement("img");
-    //   imageElement.src = hero.image.url;
-    //   imageElement.alt = hero.name + " Image";
-    //   heroCard.appendChild(imageElement);
-
-    //   const biographyElement = document.createElement("p");
-    //   biographyElement.textContent = `Full Name: ${hero.biography["full-name"]}`;
-    //   heroCard.appendChild(biographyElement);
-    //   const intelligenceElement = document.createElement("p");
-    //   intelligenceElement.textContent = `Intelligence: ${hero.powerstats.intelligence}`;
-    //   heroCard.appendChild(intelligenceElement);
-
-    //   const combat = document.createElement("p");
-    //   combat.textContent = `Combat: ${hero.powerstats.combat}`;
-    //   heroCard.appendChild(combat);
-    //   const power = document.createElement("p");
-    //   power.textContent = `Power: ${hero.powerstats.power}`;
-    //   heroCard.appendChild(power);
-
-    //   const strengthElement = document.createElement("p");
-    //   strengthElement.textContent = `Strength: ${hero.powerstats.strength}`;
-    //   heroCard.appendChild(strengthElement);
-
-    //   const speedElement = document.createElement("p");
-    //   speedElement.textContent = `Speed: ${hero.powerstats.speed}`;
-    //   heroCard.appendChild(speedElement);
-    //   // Append the hero card to the hero container
-    //   heroesList.appendChild(heroCard);
-    // });
-
     heroesToDisplay.forEach((hero) => {
       // Create a div to hold the hero card
       const heroCard = document.createElement("div");
