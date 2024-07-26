@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle Team Arena</title>
+    <script src="assets/js/data/heroes.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            border: 2px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .alignment-options label {
+            margin-right: 15px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Open a booster pack and draft your Heroes</h1>
+        <div class="alignment-options">
+            <label><input type="radio" name="alignment" value="good" id="good-option"> Good (<span
+                    id="good-count">21</span>)</label>
+            <label><input type="radio" name="alignment" value="bad" id="bad-option"> Bad (<span
+                    id="bad-count">16</span>)</label>
+        </div>
+        <button id="start-draft">Start Draft</button>
+    </div>
+    <script type="module">
+        import heroes from "../data/heroes.js";
+        const good = heroes.filter(
+            (hero) => hero.biography.alignment === "good"
+        ).length;
+        const bad = heroes.filter(
+            (hero) => hero.biography.alignment === "bad"
+        ).length;
+        document.getElementById('good-count').textContent = good;
+        document.getElementById('bad-count').textContent = bad;
+
+        document.getElementById('start-draft').addEventListener('click', function () {
+            // Example: Redirect or show another page/section
+            window.location.href = 'draft.html'; // Change to your draft page URL
+        });
+    </script>
+</body>
+
+</html>

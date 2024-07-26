@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="assets/js/data/heroes.js" type="module"></script>
+    <title>Draft Heroes</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            /* border: 2px solid #ddd; */
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin: 20px 0;
+            position: relative;
+            height: 25px;
+        }
+
+        .progress-bar span {
+            display: block;
+            height: 100%;
+            background-color: #4caf50;
+            border-radius: 5px;
+        }
+
+        .hero-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .hero img {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            transition: border 0.3s, filter 0.3s;
+        }
+
+        .hero img.selected {
+            border-color: #4caf50;
+            filter: brightness(1.2);
+        }
+
+        .hero span {
+            margin-top: 5px;
+        }
+
+        .battle-section {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .battle-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .battle-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .battle-item img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .battle-item.defeated {
+            opacity: 0.5;
+            filter: grayscale(100%);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1 style="display:flex;justify-content:center; font-size: 30px; margin-bottom: 40px; margin-top: 30px;">Battle
+            Team
+            Arena</h1>
+    </div>
+    <div>
+        <!-- <h1 style="margin-top: 30px; border: 4px solid yellow;">All Heroes</h1> -->
+        <a href="../../../index.html" style="margin-right: 10px">All heroes</a>
+        <a href="./arena.html" id="go-to-arena-link" style="margin-right: 10px">Go to the Arena</a>
+        <a href="./frame.html" id="go-to-arena-link" style="margin-right: 10px">fall frame </a>
+    </div>
+    <div class="container">
+
+        <h1>Draft Your Heroes</h1>
+        <button id="start-battle-btn">Start Battle</button>
+        <span style="display: block;">Defined heroes</span>
+        <div class="progress-bar">
+            <span id="strength-progress" style="width: 0%;"></span>
+        </div>
+        <span>total cost</span>
+        <div class="progress-bar">
+            <span id="speed-progress" style="width: 0%;"></span>
+        </div>
+        <span>total priority</span>
+        <div class="progress-bar">
+            <span id="combat-progress" style="width: 0%;"></span>
+        </div>
+        <div class="hero-container" id="heroes-container">
+            <!-- Heroes will be dynamically added here -->
+        </div>
+    </div>
+
+    <div class="battle-section" id="battle-section">
+        <h2>Battle!</h2>
+        <div id="heroes-list" class="battle-list">
+            <h3>Heroes</h3>
+            <!-- Heroes will be dynamically added here -->
+        </div>
+        <div id="villains-list" class="battle-list">
+            <h3>Villains</h3>
+            <!-- Villains will be dynamically added here -->
+        </div>
+        <button id="fight-btn" style="width: 50px; height: 50px; color: #4caf50;">Fight</button>
+    </div>
+
+    <script type="module">
+        import heroes from '../data/heroes.js';
+
+        const config = {
+            maxStrength: 20,
+            maxSpeed: 10,
+            maxCombat: 15
+        };
+
+        const heroesContainer = document.getElementById('heroes-container');
+        const battleSection = document.getElementById('battle-section');
+        const heroesList = document.getElementById('heroes-list');
+        const villainsList = document.getElementById('villains-list');
+        const heros = heroes.slice(0, 20);
+
+        // Function to render heroes
+        const renderHeroes = () => {
+            heroesContainer.innerHTML = heros.map(hero => `
+                <div class="hero" data-id="${hero.id}" data-strength="${hero.powerstats.strength}" data-speed="${hero.powerstats.speed}" data-combat="${hero.powerstats.combat}">
+                    <img src="${hero.image.url}" alt="${hero.name}" onclick="toggleHeroSelection(this)">
+                    <span>${hero.name}</span>
+                </div>
+            `).join('');
+        };
+
+        // Function to update progress bars
+        const updateProgress = (attribute, value, maxValue) => {
+            let percentage = 100
+            value === 0 ? percentage = 0 : percentage = 100;
+            document.getElementById(`${attribute}-progress`).style.width = `${percentage}%`;
+        };
+
+        // Function to calculate progress
+        const calculateProgress = () => {
+            let totalStrength = 0;
+            let totalSpeed = 0;
+            let totalCombat = 0;
+
+            document.querySelectorAll('.hero img.selected').forEach(img => {
+                const hero = img.parentElement;
+                totalStrength += parseInt(hero.dataset.strength);
+                totalSpeed += parseInt(hero.dataset.speed);
+                totalCombat += parseInt(hero.dataset.combat);
+            });
+
+            updateProgress('strength', totalStrength, config.maxStrength);
+            updateProgress('speed', totalSpeed, config.maxSpeed);
+            updateProgress('combat', totalCombat, config.maxCombat);
+        };
+
+        // Function to toggle hero selection
+        window.toggleHeroSelection = (img) => {
+            img.classList.toggle('selected');
+            calculateProgress();
+        };
+
+        // Function to start battle
+        const displayBattleLists = () => {
+            const selectedHeroes = Array.from(document.querySelectorAll('.hero img.selected')).map(img => img.parentElement);
+            const selectedVillains = Array.from(document.querySelectorAll('.hero img.selected')).map(img => img.parentElement);
+
+            // Shuffle and divide into heroes and villains
+            const heroesListItems = selectedHeroes.slice(0, 5);
+            const villainsListItems = selectedHeroes.slice(5, 10);
+
+            heroesList.innerHTML = heroesListItems.map(hero => `
+                <div class="battle-item" data-id="${hero.dataset.id}">
+                    <img src="${hero.querySelector('img').src}" alt="${hero.querySelector('span').innerText}">
+                    <span>${hero.querySelector('span').innerText}</span>
+                </div>
+            `).join('');
+
+            villainsList.innerHTML = villainsListItems.map(villain => `
+                <div class="battle-item" data-id="${villain.dataset.id}">
+                    <img src="${villain.querySelector('img').src}" alt="${villain.querySelector('span').innerText}">
+                    <span>${villain.querySelector('span').innerText}</span>
+                </div>
+            `).join('');
+        };
+
+        // Function to handle the fight logic
+        const handleFight = () => {
+            const heroesListItems = document.querySelectorAll('#heroes-list .battle-item');
+            const villainsListItems = document.querySelectorAll('#villains-list .battle-item');
+
+            heroesListItems.forEach((heroItem, index) => {
+                if (index < villainsListItems.length) { // Ensure index is within bounds
+                    const heroId = heroItem.dataset.id;
+                    const villainItem = villainsListItems[index];
+                    const villainId = villainItem.dataset.id;
+
+                    const hero = heros.find(h => h.id == heroId);
+                    const villain = heros.find(v => v.id == villainId);
+
+                    if (hero && villain) {
+                        const heroAttack = {
+                            strength: hero.powerstats.strength,
+                            speed: hero.powerstats.speed,
+                            combat: hero.powerstats.combat
+                        };
+
+                        const villainDefense = {
+                            strength: villain.powerstats.strength,
+                            speed: villain.powerstats.speed,
+                            combat: villain.powerstats.combat
+                        };
+
+                        // Determine winner
+                        const results = {
+                            heroWins: 0,
+                            villainWins: 0
+                        };
+
+                        for (const [key, attackValue] of Object.entries(heroAttack)) {
+                            if (attackValue > villainDefense[key]) {
+                                results.heroWins++;
+                            }
+                            if (villainDefense[key] > attackValue) {
+                                results.villainWins++;
+                            }
+                        }
+
+                        // Display results
+                        if (results.heroWins > results.villainWins) {
+                            heroItem.classList.add('defeated');
+                            villainItem.classList.remove('defeated');
+                        } else if (results.villainWins > results.heroWins) {
+                            villainItem.classList.add('defeated');
+                            heroItem.classList.remove('defeated');
+                        } else {
+                            heroItem.classList.toggle('defeated');
+                            villainItem.classList.toggle('defeated');
+                        }
+                    }
+                }
+            });
+
+            // Determine the winning team
+            const totalHeroes = heroesListItems.length;
+            const totalVillains = villainsListItems.length;
+            const heroDefeats = heroesList.querySelectorAll('.defeated').length;
+            const villainDefeats = villainsList.querySelectorAll('.defeated').length;
+
+            let message = 'The battle is over!';
+
+
+            if (heroDefeats > totalHeroes / 2) {
+                message += ' Villains win!';
+            } else if (villainDefeats > totalVillains / 2) {
+                message += ' Heroes win!';
+            } else {
+                message += ' It\'s a tie!';
+            }
+            const rand = () => Math.floor(Math.random() * 10) + 1;
+            rand < 5 ? alert("Heroes win") : rand === 5 ? alert("It's a tie") : alert('villains win')
+            // updateProgress('asdf', 0, 0);
+            // renderHeroes();
+            location.reload();
+        };
+
+        // Event listener for Start Battle button
+        document.getElementById('start-battle-btn').addEventListener('click', () => {
+            battleSection.style.display = 'block';
+            displayBattleLists();
+        });
+
+        // Event listener for Fight button
+        document.getElementById('fight-btn').addEventListener('click', handleFight);
+
+        // Render heroes on page load
+        renderHeroes();
+    </script>
+</body>
+
+</html>

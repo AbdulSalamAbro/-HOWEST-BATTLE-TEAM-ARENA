@@ -1,0 +1,63 @@
+/* Container for hero cards */
+#heroes-list {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping of cards if they exceed container width */
+  justify-content: center; /* Centers the hero cards */
+  gap: 20px; /* Space between cards */
+  padding: 20px; /* Padding around the container */
+  box-sizing: border-box; /* Include padding in the width */
+  border: 1px solid #ddd; /* Optional: border around the container */
+}
+
+/* Style for individual hero cards */
+.hero-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  width: 200px; /* Increased width for additional content */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  text-align: left; /* Left align text */
+  display: flex;
+  flex-direction: column;
+  position: relative; /* For positioning of bottom elements */
+}
+
+/* Add header for alignment and race */
+.hero-card .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+}
+.hero-card img {
+  width: 170px; /* Change this value to adjust width */
+  height: 220px; /* Change this value to adjust height */
+  border-radius: 4px;
+}
+
+.hero-card p {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Style for bottom section */
+.hero-card .bottom-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8em;
+  margin-top: auto; /* Push to bottom of the card */
+}
+
+/* Style for priority and attack/defense values */
+.hero-card .bottom-section .priority,
+.hero-card .bottom-section .attack-defense {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}

@@ -19,21 +19,98 @@
     <link rel="stylesheet" href="assets/css/battle.css">
 
     <script src="assets/js/config.js"></script>
-    <script src="assets/js/data/heroes.js"></script>
-    <script src="assets/js/lib.js"></script>        
+    <script src="assets/js/data/heroes.js" type="module">
+
+    </script>
+    <script src="assets/js/lib.js"></script>
     <script src="assets/js/services/heroService.js"></script>
     <script src="assets/js/services/hallOfFameService.js"></script>
     <script src="assets/js/services/draftService.js"></script>
     <script src="assets/js/pages/renderer.js"></script>
     <script src="assets/js/pages/pages.js"></script>
-    <script src="assets/js/pages/heroes.js"></script>
+    <script src="assets/js/pages/heroes.js">
+
+    </script>
     <script src="assets/js/pages/draft.js"></script>
     <script src="assets/js/pages/battle.js"></script>
-    <script src="assets/js/pages/hallOfFame.js"></script>    
+    <script src="assets/js/pages/hallOfFame.js"></script>
     <script src="assets/js/app.js"></script>
 </head>
 
 <body>
-    <!-- your html -->
+    <div>
+        <h1 style="display:flex;justify-content:center; font-size: 30px; margin-bottom: 40px; margin-top: 30px;">Battle
+            Team
+            Arena</h1>
+    </div>
+
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <div>
+            <!-- <h1 style="margin-top: 30px; border: 4px solid yellow;">All Heroes</h1> -->
+            <a href="./index.html" style="margin-right: 10px">All heroes</a>
+            <a href="./assets/js/data/arena.html" id="go-to-arena-link" style="margin-right: 10px">Go to the Arena</a>
+            <a href="./assets/js/data/frame.html" id="go-to-arena-link" style="margin-right: 10px">fall frame </a>
+        </div>
+
+        <div style="margin: 30px;  padding: 20px; display: inline-block;">
+
+            <label for="hero-filter" style="margin-right: 10px;">Name</label>
+            <input type="text" id="hero-filter" placeholder="Filter heroes by name...">
+
+            <label for="race-dropdown" style="margin-right: 5px; margin-left: 5px;">Race</label>
+            <select id="race-dropdown">
+                <option value="All">- All -</option>
+                <option value="Human">Human</option>
+                <option value="Mutant">Mutant</option>
+                <option value="Android">Android</option>
+                <option value="Alien">Alien</option>
+                <option value="Cyborg">Cyborg</option>
+                <option value="God / Eternal">God / Eternal</option>
+                <option value="Symbiote">Symbiote</option>
+                <option value="Demi-God">Demi-God</option>
+            </select>
+
+            <label>
+                <input type="checkbox" id="alignment-good" value="good"> Good
+            </label>
+            <label>
+                <input type="checkbox" id="alignment-bad" value="bad"> Bad
+            </label>
+            <label>
+                <input type="checkbox" id="alignment-neutral" value="neutral"> Neutral
+            </label>
+
+            <label for="attribute-dropdown" style="margin-left: 10px;">Order by</label>
+            <select id="attribute-dropdown">
+                <option value="name">Name</option>
+                <option value="powerstats.strength">Strength</option>
+                <option value="powerstats.speed">Speed</option>
+                <option value="powerstats.intelligence">Intelligence</option>
+                <option value="powerstats.combat">Combat</option>
+                <option value="powerstats.power">Power</option>
+                <option value="powerstats.durability">Durability</option>
+                <option value="work.occupation">Occupation</option>
+                <option value="appearance.weight">Weight</option>
+                <option value="appearance.height">Height</option>
+                <option value="appearance.gender">Gender</option>
+            </select>
+
+            <label for="sort-dropdown">Sort</label>
+            <select id="sort-dropdown">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+
+            <button id="filter-button">Filter</button>
+        </div>
+    </div>
+
+    <div id="heroes-list"></div>
+    <div id="draft-booster-list"></div>
+
+
+    <script>
+    </script>
 </body>
+
 </html>
