@@ -17497,7 +17497,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add event listener to filter input
   heroFilter.addEventListener("input", filterAndSortHeroes);
 
-  // Add event listeners to dropdowns and filter button
+  // Add event listeners to dropdowns and filter button to filter and sort heroes
   attributeDropdown.addEventListener("change", filterAndSortHeroes);
   sortDropdown.addEventListener("change", filterAndSortHeroes);
   filterButton.addEventListener("click", filterAndSortHeroes);
