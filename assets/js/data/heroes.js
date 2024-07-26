@@ -17329,6 +17329,7 @@ const heroes = [
 
 // Initialize DOM Elements and Event Listeners on Page Load
 document.addEventListener("DOMContentLoaded", () => {
+  // Initialize DOM Elements and Event Listeners on Page Load
   const heroesList = document.getElementById("heroes-list");
   const draftBoosterList = document.getElementById("draft-booster-list");
   const heroFilter = document.getElementById("hero-filter");
@@ -17340,12 +17341,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const alignmentBad = document.getElementById("alignment-bad");
   const alignmentNeutral = document.getElementById("alignment-neutral");
 
-  console.log(
-    "Alignment Good : ",
-    alignmentGood.checked,
-    alignmentBad.checked,
-    alignmentNeutral.checked
-  );
   // Function to render the list of heroes
   function renderHeroes(heroesToRender) {
     heroesList.innerHTML = "";
