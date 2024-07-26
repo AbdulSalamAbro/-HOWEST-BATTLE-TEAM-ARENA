@@ -25,7 +25,7 @@
   position: relative; /* For positioning of bottom elements */
 }
 
-/* Add header for alignment and race */
+/* Add header for alignment and race for good looking */
 .hero-card .header {
   display: flex;
   justify-content: space-between;
