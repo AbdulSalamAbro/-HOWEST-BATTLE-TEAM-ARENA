@@ -33,6 +33,8 @@
   margin-bottom: 10px;
   font-size: 0.9em;
 }
+
+/* //Refine Hero Card Design for Better Visual Appeal */
 .hero-card img {
   width: 170px; /* Change this value to adjust width */
   height: 220px; /* Change this value to adjust height */
